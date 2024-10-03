@@ -7,7 +7,6 @@ import { DotScreen, EffectComposer, Glitch } from '@react-three/postprocessing';
 import { Vector2 } from 'three';
 import { BlendFunction } from 'postprocessing';
 import { AsciiEffect } from './AsciiGl';
-import useDeviceOrientation, { DeviceOrientation } from './useOrientation';
 
 interface IInternalSceneProps {
   y: number;
@@ -50,16 +49,9 @@ const InternalScene = ({y, x, width}: IInternalSceneProps) => {
 
   return (
       <>
-
            <Float floatIntensity={1} floatingRange={[-1,1]} rotationIntensity={0.2}>
           <Float>
           <Text color={"white"} fontSize={width} strokeOpacity={1 - y} fillOpacity={pastCentre> 0 ? 1-y : 0} position={[0, 0, -3]} maxWidth={width} strokeWidth={0.3} strokeColor={"green"}>λ</Text>
-
-          </Float>
-          <Float enabled={true} speed={2} floatIntensity={1} floatingRange={[-1,1]} rotationIntensity={3}>
-
-            <Image transparent url='/numogram.png' zoom={0.4} scale={width*3.5} position={[0, 0, 2]} color="#7f7" opacity={pastCentre > 0 ? 0 : 1}></Image>
-
 
           </Float>
 
@@ -75,27 +67,8 @@ const Container = () => {
   const [y, setY] = useState(0);
   const [x, setX] = useState(0);
 
-  const {orientationChange} = useDeviceOrientation();
-
   // get the canvas width
   const { width, height } = useThree(state => state.viewport.getCurrentViewport())
-  const [mouse] = useMouse()
-  const mouseX = (mouse.x / width)/100;
-  const mouseY = (mouse.y / height)/100;
-
-  useEffect(() => {
-    if (orientationChange && orientationChange.beta !== null && orientationChange.alpha !== null) {
-      // Use orientationChange values if available
-      setY(orientationChange.beta / 30);
-      setX(0.5 + orientationChange.gamma / 30);
-
-    } else {
-      // Fallback to mouse position
-      setY(mouseY);
-      setX(mouseX);
-    }
-  }, [orientationChange, mouseX, mouseY])
-
     return (
       <Center  disable rotation={[0,0.5 - x, 0]} position={[0, 0, -1]} >
         <Billboard follow={false}>

@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { AsciiBG } from '@/components/asciirenderer/AsciiExamples';
 import Head from 'next/head';
-import useDeviceOrientation  from '@/components/asciirenderer/useOrientation';
+import Terminal from '@/components/terminal/terminal';
+import { Footer } from '@/components/footer';
 
 const Home = () => {
-  const {orientationChange} = useDeviceOrientation();
 
 
   return (
@@ -14,6 +14,8 @@ const Home = () => {
         <title>qliphoth:systems</title>
       </Head>
       <AsciiBG />
+      <Footer />
+
     </>
   );
 };
