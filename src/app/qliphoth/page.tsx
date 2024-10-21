@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { AsciiBG } from '@/components/asciirenderer/AsciiExamples';
 import Head from 'next/head';
-import Terminal from '@/components/terminal/terminal';
 import { Footer } from '@/components/footer';
 
 const Home = () => {

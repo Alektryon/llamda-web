@@ -82,7 +82,7 @@ export class AsciiGl extends Effect {
             charactersTextureUniform.value = this.createCharactersTexture(characters, fontSize);
         }
     }
-    /** Draws the characters on a Canvas and returns a texture */
+
     public createCharactersTexture(characters: string, fontSize: number): Texture {
         const canvas = document.createElement('canvas');
 
@@ -131,4 +131,4 @@ export class AsciiGl extends Effect {
 export const AsciiEffect = (props: IAsciiGlProps) => {
     const asciiEffect = useMemo(() => new AsciiGl(props), [props]);
     return (<primitive object={asciiEffect} />);
-  }
+}
