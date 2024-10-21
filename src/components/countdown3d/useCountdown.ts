@@ -1,31 +1,29 @@
 import { useState, useEffect } from 'react';
 
 const useCountdown = (targetTime: Date) => {
-  const [timeLeft, setTimeLeft] = useState(() => {
+  const calculateTimeLeft = () => {
     const now = new Date();
-    const pstNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
-    const pstTarget = new Date(targetTime.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
-    return Math.max(0, Math.floor((pstTarget.getTime() - pstNow.getTime()) / 1000));
-  });
+    const laNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+    const laTarget = new Date(targetTime.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
+    const difference = laTarget.getTime() - laNow.getTime();
+    return Math.max(0, Math.floor(difference / 1000));
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 0) {
-          clearInterval(intervalId);
-          return 0;
-        }
-        const now = new Date();
-        const pstNow = new Date(now.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
-        const pstTarget = new Date(targetTime.toLocaleString("en-US", { timeZone: "America/Los_Angeles" }));
-        return Math.max(0, Math.floor((pstTarget.getTime() - pstNow.getTime()) / 1000));
-      });
+    const timer = setInterval(() => {
+      const newTimeLeft = calculateTimeLeft();
+      setTimeLeft(newTimeLeft);
+      if (newTimeLeft <= 0) {
+        clearInterval(timer);
+      }
     }, 1000);
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(timer);
   }, [targetTime]);
 
   return timeLeft;
-}
+};
 
 export default useCountdown;
