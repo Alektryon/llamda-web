@@ -11,7 +11,7 @@ const nextConfig = {
             value: 'gnon.ai',
           },
         ],
-        destination: '/gnon/:path',
+        destination: '/gnon',
       },
       {
         source: '/:path*',
