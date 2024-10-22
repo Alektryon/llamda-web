@@ -1,0 +1,432 @@
+.container {
+  background-color: #0a0a0a;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+  border: 2px solid #00ff00;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+     0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 0, 0.05) 2px,
+    rgba(0, 255, 0, 0.05) 4px
+  );
+  animation: scan 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50%); }
+}
+
+.form {
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.input {
+  flex-grow: 1;
+  background-color: #1a1a1a;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px;
+  font-size: 16px;
+  box-shadow: 0 0 5px #00ff00;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+}
+
+.button {
+  background-color: #1a1a1a;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 0, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.button:hover::before {
+  left: 100%;
+}
+
+.button:hover {
+  background-color: #00ff00;
+  color: #000;
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+}
+
+.liveResult {
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.cipherResult {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cipherResult:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px;
+}
+
+.entriesTable {
+  overflow-x: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.th, .td {
+  border: 1px solid;
+  padding: 10px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.th {
+  background-color: rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tr:hover .td {
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px;
+}
+
+@keyframes glowingText {
+  0% { text-shadow: 0 0 5px; }
+  50% { text-shadow: 0 0 20px, 0 0 30px; }
+  100% { text-shadow: 0 0 5px; }
+}
+
+.heading {
+  animation: glowingText 2s infinite;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.container:hover::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #00ff00;
+  text-shadow: 2px 2px #ff00ff;
+  animation: glitch 0.3s infinite;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+.systemSelector {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.systemButton {
+  background-color: #1a1a1a;
+  color: inherit;
+  border: 1px solid;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-grow: 1;
+  text-align: center;
+  margin: 0 5px;
+  height: 100%;
+}
+
+.systemButton:first-child {
+  margin-left: 0;
+}
+
+.systemButton:last-child {
+  margin-right: 0;
+}
+
+.systemButton:hover, .systemButton.active {
+  color: #000;
+}
+
+.systemButton[data-cipher="English Cabala"] { color: #00ff00; }
+.systemButton[data-cipher="AQ Cipher"] { color: #ff00ff; }
+.systemButton[data-cipher="Satanic Gematria"] { color: #ff0000; }
+.systemButton[data-cipher="Synx"] { color: #00ffff; }
+
+.systemButton[data-cipher="English Cabala"]:hover,
+.systemButton[data-cipher="English Cabala"].active { background-color: #00ff00; }
+
+.systemButton[data-cipher="AQ Cipher"]:hover,
+.systemButton[data-cipher="AQ Cipher"].active { background-color: #ff00ff; }
+
+.systemButton[data-cipher="Satanic Gematria"]:hover,
+.systemButton[data-cipher="Satanic Gematria"].active { background-color: #ff0000; }
+
+.systemButton[data-cipher="Synx"]:hover,
+.systemButton[data-cipher="Synx"].active { background-color: #00ffff; }
+
+.liveDisplay[data-cipher="English Cabala"] { border-color: #00ff00; }
+.liveDisplay[data-cipher="AQ Cipher"] { border-color: #ff00ff; }
+.liveDisplay[data-cipher="Satanic Gematria"] { border-color: #ff0000; }
+.liveDisplay[data-cipher="Synx"] { border-color: #00ffff; }
+
+.cipherResult[data-cipher="English Cabala"] { border-color: #00ff00; color: #00ff00; }
+.cipherResult[data-cipher="AQ Cipher"] { border-color: #ff00ff; color: #ff00ff; }
+.cipherResult[data-cipher="Satanic Gematria"] { border-color: #ff0000; color: #ff0000; }
+.cipherResult[data-cipher="Synx"] { border-color: #00ffff; color: #00ffff; }
+
+.totalValuesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.totalValueItem {
+  border: 1px solid;
+  padding: 10px;
+  text-align: center;
+}
+
+.selectedCipherPreview {
+  border: 1px solid;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.systemButton.active {
+  color: #000;
+}
+
+.systemButton[data-cipher="English Cabala"],
+.totalValueItem[data-cipher="English Cabala"],
+.selectedCipherPreview[data-cipher="English Cabala"] { 
+  color: #00ff00; 
+  border-color: #00ff00;
+}
+
+.systemButton[data-cipher="AQ Cipher"],
+.totalValueItem[data-cipher="AQ Cipher"],
+.selectedCipherPreview[data-cipher="AQ Cipher"] { 
+  color: #ff00ff; 
+  border-color: #ff00ff;
+}
+
+.systemButton[data-cipher="Satanic Gematria"],
+.totalValueItem[data-cipher="Satanic Gematria"],
+.selectedCipherPreview[data-cipher="Satanic Gematria"] { 
+  color: #ff0000; 
+  border-color: #ff0000;
+}
+
+.systemButton[data-cipher="Synx"],
+.totalValueItem[data-cipher="Synx"],
+.selectedCipherPreview[data-cipher="Synx"] { 
+  color: #00ffff; 
+  border-color: #00ffff;
+}
+
+.systemButton:hover, 
+.systemButton.active,
+.totalValueItem:hover,
+.selectedCipherPreview {
+  color: #000;
+}
+
+.totalValueItem,
+.selectedCipherPreview {
+  border: 1px solid;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.totalValueItem:hover,
+.selectedCipherPreview:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.letterValues {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.letterValue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.letter {
+  font-size: 1.2em;
+}
+
+.value {
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+.column {
+  width: 48%;
+}
+
+.letterValues, .wordValues {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.letterValue, .wordValue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.letter, .word {
+  font-size: 1.2em;
+}
+
+.value {
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+.leftColumn, .rightColumn {
+  width: 48%;
+}
+
+.tableContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.entriesTable {
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #00ff00;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 90%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+.th, .td {
+  padding: 10px;
+  text-align: left;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.th[data-cipher="English Cabala"],
+.td[data-cipher="English Cabala"] {
+  color: #00ff00;
+  border-color: #00ff00;
+}
+
+.th[data-cipher="AQ Cipher"],
+.td[data-cipher="AQ Cipher"] {
+  color: #ff00ff;
+  border-color: #ff00ff;
+}
+
+.th[data-cipher="Satanic Gematria"],
+.td[data-cipher="Satanic Gematria"] {
+  color: #ff0000;
+  border-color: #ff0000;
+}
+
+.th[data-cipher="Synx"],
+.td[data-cipher="Synx"] {
+  color: #00ffff;
+  border-color: #00ffff;
+}
+
+.tr:hover .td {
+  background-color: rgba(255, 255, 255, 0.1);
+}

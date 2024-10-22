@@ -15,23 +15,28 @@ const defaultLinks = [
   { href: "https://github.com/lumpenspace", label: "github" },
 ]
 
-interface FooterProps {
-  links?: { href: string; label: string }[];
-}
-
-const Footer: React.FC<FooterProps> = ({ links = defaultLinks }) => (
-  <div className="w-full z-10 fixed flex flex-row bottom-0 left-0 justify-between font-mono mix-blend-exclusion ">
-    llamda, inc | 2024
-    <div className='text-right'>
-      {links.map((link, index) => (
-        <FooterLink 
-          key={link.href} 
-          href={link.href} 
-          isLast={index === links.length - 1}
-        > 
-          {link.label} 
-        </FooterLink>
-      ))} 
+const Footer = ({ links = defaultLinks }: { links: { href: string, label: string }[] }) => (
+  <div className="w-full min-h-screen flex flex-col items-center justify-center font-mono">
+    <div className="text-center mb-4">
+      llamda, inc | 2024
+    </div>
+    <div className="overflow-y-auto max-h-[50vh]">
+      <table className="border-collapse">
+        <tbody>
+          {links.map((link, index) => (
+            <tr key={link.href}>
+              <td className="py-2">
+                <FooterLink 
+                  href={link.href} 
+                  isLast={index === links.length - 1}
+                > 
+                  {link.label} 
+                </FooterLink>
+              </td>
+            </tr>
+          ))} 
+        </tbody>
+      </table>
     </div>
   </div>
 )

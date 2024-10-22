@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { AsciiBG } from '@/components/asciirenderer/AsciiGnon';
 import Head from 'next/head';
 import { Footer } from '@/components/footer';
+import GematriaCalculator from '@/components/gematro/GematriaCalculator';
 
 const Home = () => {
 
@@ -13,6 +14,7 @@ const Home = () => {
         <title>gnon.ai</title>
       </Head>
       <AsciiBG />
+      <GematriaCalculator />
       <Footer links={[
         {
           href: "https://explorer.solana.com/address/HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",

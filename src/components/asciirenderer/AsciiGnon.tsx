@@ -59,11 +59,8 @@ const HPText = ({width, color= "white", cover=false}: IHPTextProps) => {
   return (
     <Text rotation={[0, 0, 0]} characters="abcdefgλhijklmnopqrstuvwxyz0123456789!">
       <KText {...commonProps} fontSize={width/4} position={[0, (cover ? pos : 1) * 3, cover ? 0.2 : 0]}>GN0N</KText>
-      <KText {...commonProps} fontSize={width/7} position={[0, (cover ? pos : 1) * -3, cover ? 0.2 : 0]}>
-        {formatCountdown(timeLeft)}
-      </KText>
-      <KText {...commonProps} fontSize={width/20} position={[0, (cover ? pos : 1) * -4, cover ? 0.2 : 0]}>
-        Ends: {targetDate.toLocaleString("en-US", { timeZone: "America/Los_Angeles" })} (LA Time)
+      <KText {...commonProps} fontSize={width/4} position={[0, (cover ? pos : 1) * -3, cover ? 0.2 : 0]}>
+        GMTR
       </KText>
     </Text>
   )
