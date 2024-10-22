@@ -77,11 +77,72 @@ console.log(result);
 
 export { computeGematria };
 
-export const cyphers = {
-  'English Ordinal': {
-    'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9,
-    'j': 10, 'k': 11, 'l': 12, 'm': 13, 'n': 14, 'o': 15, 'p': 16, 'q': 17,
-    'r': 18, 's': 19, 't': 20, 'u': 21, 'v': 22, 'w': 23, 'x': 24, 'y': 25, 'z': 26
-  },
-  // Add other cyphers here...
+const englishOrdinal = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+  11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  21, 22, 23, 24, 25, 26
+];
+
+const aqCipher = [
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+  20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+  30, 31, 32, 33, 34, 35
+];
+
+const createCipherObject = (values: number[]) => {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+  return Object.fromEntries(chars.split('').map((char, index) => [char, values[index]]));
 };
+
+export const cyphers = {
+  'English Ordinal': createCipherObject(englishOrdinal),
+  'AQ Cipher': createCipherObject(aqCipher),
+};
+
+// For debugging
+console.log('English Ordinal:', cyphers['English Ordinal']);
+console.log('AQ Cipher:', cyphers['AQ Cipher']);
+
+type GematriaSystem = {
+  name: string;
+  values: { [key: string]: number };
+};
+
+const alphanumeric = '0123456789abcdefghijklmnopqrstuvwxyz';
+
+export const gematriaSystems: GematriaSystem[] = [
+  {
+    name: 'English Ordinal',
+    values: Object.fromEntries(
+      alphanumeric.split('').map((char, index) => [
+        char,
+        index < 10 ? index : index - 9 // 0-9 stay the same, a-z become 1-26
+      ])
+    )
+  },
+  {
+    name: 'Full Reduction',
+    values: Object.fromEntries(
+      alphanumeric.split('').map((char, index) => [
+        char,
+        index < 10 ? index : ((index - 9) % 9) || 9 // 0-9 stay the same, a-z become 1-9 repeating
+      ])
+    )
+  },
+  {
+    name: 'Reverse Ordinal',
+    values: Object.fromEntries(
+      alphanumeric.split('').map((char, index) => [
+        char,
+        index < 10 ? index : 26 - (index - 10) // 0-9 stay the same, a-z become 26-1
+      ])
+    )
+  },
+  // Add more gematria systems as needed
+];
+
+// For debugging
+console.log('Gematria Systems:', gematriaSystems.map(sys => sys.name));
+gematriaSystems.forEach(sys => console.log(`${sys.name}:`, sys.values));
