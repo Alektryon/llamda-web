@@ -6,6 +6,7 @@ type CipherDataset = {
 
 // Define the ciphers
 const ciphers: CipherDataset[] = [
+// I think 'English Cabala' should be renamed to 'English Ordinal', in order not to be confused with English Qaballa (the 'ALW' cipher).
   {
     title: 'English Cabala',
     values: [...Array(10).keys(), ...Array.from({length: 26}, (_, i) => i + 1)]  // 0-9, a-z as 1-26
@@ -14,18 +15,16 @@ const ciphers: CipherDataset[] = [
     title: 'AQ Cipher',
     values: [...Array(10).keys(), ...Array.from({length: 26}, (_, i) => i + 10)] // 0-9, a-z as 10-35
   },
+// Corrected Synx in order to correspond to the 36 divisors of 1260, the smallest natural number having exactly 36 divisors.
   {
     title: 'Synx',
-    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 14, 15, 18, 20, 21, 28, 30, 35, 
-             36, 42, 45, 63, 70, 84, 90, 105, 126, 140, 180, 210, 252, 315, 420, 630, 1260]
+    values: [1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 14, 15, 18, 20, 21, 28, 30, 35, 
+             36, 42, 45, 60, 63, 70, 84, 90, 105, 126, 140, 180, 210, 252, 315, 420, 630, 1260]
   },
+// Corrected 'Satanic Gematria' so that A=36, B=37, etc, until Z=61. 'Satanic Gematria' equals 666 in the same cipher.
   {
     title: 'Satanic Gematria',
-    values: Array.from({length: 36}, (_, i) => {
-      if (i < 10) return i * chaosFactor(i.toString());
-      const char = String.fromCharCode(97 + i - 10);  // a-z
-      return (i - 9) * chaosFactor(char);
-    })
+    values: [...Array(10).keys(), ...Array.from({length: 26}, (_, i) => i + 36)] // 0-9, a-z as 36-61
   }
 ];
 
